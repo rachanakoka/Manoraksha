@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bubble Popping Game</title>
+<style>
+    body {
+        background-image: url(images/water.jpg);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    #game-container {
+        position: relative;
+        width: 400px;
+        height: 400px;
+        border: 2px solid #ccc;
+        border-radius: 50%;
+        overflow: hidden;
+    }
+    .bubble {
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.8);
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+<div id="game-container">
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const gameContainer = document.getElementById("game-container");
+
+        function createBubble() {
+            const bubble = document.createElement("div");
+            bubble.classList.add("bubble");
+            bubble.style.backgroundColor = getRandomColor();
+            bubble.style.top = `${Math.random() * 360}px`;
+            bubble.style.left = `${Math.random() * 360}px`;
+            bubble.addEventListener("click", function() {
+                bubble.remove();
+            });
+            gameContainer.appendChild(bubble);
+            setTimeout(() => {
+                bubble.remove();
+            }, 3000); // Change 3000 to adjust the bubble disappearance rate (in milliseconds)
+        }
+
+        function getRandomColor() {
+            const letters = "0123456789ABCDEF";
+            let color = "#";
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        setInterval(createBubble, 1000); // Change 1000 to adjust the bubble appearance rate (in milliseconds)
+    });
+</script>
+</body>
+</html>
+
